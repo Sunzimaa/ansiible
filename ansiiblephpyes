@@ -1,0 +1,19 @@
+
+---
+- hosts: webservers
+  tasks:
+    - name: php install
+      apt: name=php update_cache=yes state=latest
+    - name: libapache-mod-php install
+      apt: name=libapache2-mod-php update_cache=yes state=latest
+    - name: php-mysql install
+      apt: name=php-mysql update_cache=yes state=latest
+
+    - name: Create phpinfo.php
+      copy:
+        content: |
+          <?php
+          phpinfo();
+          ?>
+        dest: /var/www/html/phpinfo.php
+        mode: '0644'
